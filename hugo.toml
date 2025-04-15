@@ -1,0 +1,3 @@
+baseURL = 'https://blog.eeswepe.my.id/'
+languageCode = 'en-us'
+title = 'My New Hugo Site'
