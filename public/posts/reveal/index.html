@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Reveal | EESWEBLOG</title>
+<meta name="keywords" content="cyberdefenders, memory dump, volatility, forensics">
+<meta name="description" content="Reveal
+
+Link: https://cyberdefenders.org/blueteam-ctf-challenges/reveal/
+Scenario
+You are a forensic investigator at a financial institution, and your SIEM flagged unusual activity on a workstation with access to sensitive financial data. Suspecting a breach, you received a memory dump from the compromised machine. Your task is to analyze the memory for signs of compromise, trace the anomaly&rsquo;s origin, and assess its scope to contain the incident effectively.
+File Analysis
+given zip file. the zip file contains memory dump of the machine.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/reveal/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/reveal/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="EESWEBLOG (Alt + H)">EESWEBLOG</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Reveal
+    </h1>
+    <div class="post-meta"><span title='2025-04-15 12:27:29 +0700 WIB'>April 15, 2025</span>&nbsp;·&nbsp;3 min
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="reveal">Reveal<a hidden class="anchor" aria-hidden="true" href="#reveal">#</a></h1>
+<p><img alt="challenge banner" loading="lazy" src="/img/reveal/banner.png"></p>
+<p>Link: <a href="https://cyberdefenders.org/blueteam-ctf-challenges/reveal/">https://cyberdefenders.org/blueteam-ctf-challenges/reveal/</a></p>
+<h2 id="scenario">Scenario<a hidden class="anchor" aria-hidden="true" href="#scenario">#</a></h2>
+<p>You are a forensic investigator at a financial institution, and your SIEM flagged unusual activity on a workstation with access to sensitive financial data. Suspecting a breach, you received a memory dump from the compromised machine. Your task is to analyze the memory for signs of compromise, trace the anomaly&rsquo;s origin, and assess its scope to contain the incident effectively.</p>
+<h2 id="file-analysis">File Analysis<a hidden class="anchor" aria-hidden="true" href="#file-analysis">#</a></h2>
+<p>given zip file. the zip file contains memory dump of the machine.</p>
+<h2 id="questions">Questions<a hidden class="anchor" aria-hidden="true" href="#questions">#</a></h2>
+<h3 id="1-identifying-the-name-of-the-malicious-process-helps-in-understanding-the-nature-of-the-attack-what-is-the-name-of-the-malicious-process">1. Identifying the name of the malicious process helps in understanding the nature of the attack. What is the name of the malicious process?<a hidden class="anchor" aria-hidden="true" href="#1-identifying-the-name-of-the-malicious-process-helps-in-understanding-the-nature-of-the-attack-what-is-the-name-of-the-malicious-process">#</a></h3>
+<p>By using <code>vol -f 192-Reveal.dmp windows.pslist</code> command, we can find the name of the malicious process.</p>
+<p><img alt="pslist" loading="lazy" src="/img/reveal/q1.png"></p>
+<p><strong>Answer:</strong> <strong>powershell.exe</strong></p>
+<hr>
+<h3 id="2-knowing-the-parent-process-id-ppid-of-the-malicious-process-aids-in-tracing-the-process-hierarchy-and-understanding-the-attack-flow-what-is-the-parent-pid-of-the-malicious-process">2. Knowing the parent process ID (PPID) of the malicious process aids in tracing the process hierarchy and understanding the attack flow. What is the parent PID of the malicious process?<a hidden class="anchor" aria-hidden="true" href="#2-knowing-the-parent-process-id-ppid-of-the-malicious-process-aids-in-tracing-the-process-hierarchy-and-understanding-the-attack-flow-what-is-the-parent-pid-of-the-malicious-process">#</a></h3>
+<p>By using <code>vol -f 192-Reveal.dmp windows.pslist</code> command, we can find the parent PID of the malicious process.</p>
+<p><img alt="pslist" loading="lazy" src="/img/reveal/q1.png"></p>
+<p><strong>Answer: 4120</strong></p>
+<hr>
+<h3 id="3-determining-the-file-name-used-by-the-malware-for-executing-the-second-stage-payload-is-crucial-for-identifying-subsequent-malicious-activities-what-is-the-file-name-that-the-malware-uses-to-execute-the-second-stage-payload">3. Determining the file name used by the malware for executing the second-stage payload is crucial for identifying subsequent malicious activities. What is the file name that the malware uses to execute the second-stage payload?<a hidden class="anchor" aria-hidden="true" href="#3-determining-the-file-name-used-by-the-malware-for-executing-the-second-stage-payload-is-crucial-for-identifying-subsequent-malicious-activities-what-is-the-file-name-that-the-malware-uses-to-execute-the-second-stage-payload">#</a></h3>
+<p>By using <code>vol -f 192-Reveal.dmp windows.cmdline</code> command, we can find the command line of the malicious process. wee can see that the malware use net command to get malicious dll file on shared directory then execute it with rundll32.</p>
+<p><img alt="cmdline" loading="lazy" src="/img/reveal/q3.png"></p>
+<p><strong>Answer: 3435.dll</strong></p>
+<hr>
+<h3 id="4-identifying-the-shared-directory-on-the-remote-server-helps-trace-the-resources-targeted-by-the-attacker-what-is-the-name-of-the-shared-directory-being-accessed-on-the-remote-server">4. Identifying the shared directory on the remote server helps trace the resources targeted by the attacker. What is the name of the shared directory being accessed on the remote server?<a hidden class="anchor" aria-hidden="true" href="#4-identifying-the-shared-directory-on-the-remote-server-helps-trace-the-resources-targeted-by-the-attacker-what-is-the-name-of-the-shared-directory-being-accessed-on-the-remote-server">#</a></h3>
+<p>from that picture we can see that the shared directory is <code>davwwwroot</code></p>
+<p><strong>Answer: davwwwroot</strong></p>
+<hr>
+<h3 id="5-what-is-the-mitre-attck-sub-technique-id-that-describes-the-execution-of-a-second-stage-payload-using-a-windows-utility-to-run-the-malicious-file">5. What is the MITRE ATT&amp;CK sub-technique ID that describes the execution of a second-stage payload using a Windows utility to run the malicious file?<a hidden class="anchor" aria-hidden="true" href="#5-what-is-the-mitre-attck-sub-technique-id-that-describes-the-execution-of-a-second-stage-payload-using-a-windows-utility-to-run-the-malicious-file">#</a></h3>
+<p>by ssearching through goolge, i got a great article that talk about rundll32 and mitre att&amp;ck. <a href="https://d3fend.mitre.org/offensive-technique/attack/T1218.011/">here</a></p>
+<p><strong>Answer: T1218.011</strong></p>
+<hr>
+<h3 id="6-identifying-the-username-under-which-the-malicious-process-runs-helps-in-assessing-the-compromised-account-and-its-potential-impact-what-is-the-username-that-the-malicious-process-runs-under">6. Identifying the username under which the malicious process runs helps in assessing the compromised account and its potential impact. What is the username that the malicious process runs under?<a hidden class="anchor" aria-hidden="true" href="#6-identifying-the-username-under-which-the-malicious-process-runs-helps-in-assessing-the-compromised-account-and-its-potential-impact-what-is-the-username-that-the-malicious-process-runs-under">#</a></h3>
+<p>By using <code>vol -f 192-Reveal.dmp windows.sessions</code> command, we can find the username of the malicious process.</p>
+<p><img alt="sessions" loading="lazy" src="/img/reveal/q6.png"></p>
+<p><strong>Answer: Elon</strong></p>
+<hr>
+<h3 id="7-knowing-the-name-of-the-malware-family-is-essential-for-correlating-the-attack-with-known-threats-and-developing-appropriate-defenses-what-is-the-name-of-the-malware-family">7. Knowing the name of the malware family is essential for correlating the attack with known threats and developing appropriate defenses. What is the name of the malware family?<a hidden class="anchor" aria-hidden="true" href="#7-knowing-the-name-of-the-malware-family-is-essential-for-correlating-the-attack-with-known-threats-and-developing-appropriate-defenses-what-is-the-name-of-the-malware-family">#</a></h3>
+<p>Actually i don&rsquo;t know the name of the malware family because i done this labs after when this lab was retired. but i read on some writeup <a href="https://medium.com/@chaoskist/cyberdefenders-write-up-reveal-3a318ca0f603">(here)</a> and i get the name of the malware family is &ldquo;STRELASTEALER&rdquo;</p>
+<p><strong>Answer: STRELASTEALER</strong></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/cyberdefenders/">Cyberdefenders</a></li>
+      <li><a href="http://localhost:1313/tags/memory-dump/">Memory Dump</a></li>
+      <li><a href="http://localhost:1313/tags/volatility/">Volatility</a></li>
+      <li><a href="http://localhost:1313/tags/forensics/">Forensics</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/posts/fakegpt/">
+    <span class="title">Next »</span>
+    <br>
+    <span>FakeGPT</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">EESWEBLOG</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

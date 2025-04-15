@@ -30,6 +30,9 @@ theme = 'PaperMod'
 
 # params
 [params]
+
+  comments = true
+
   ShowPostTags = true
   ShowReadingTime = true
   ShowBreadCrumbs = true

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on EESWEBLOG</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on EESWEBLOG</description>
+    <generator>Hugo -- 0.145.0</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Apr 2025 12:27:29 +0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reveal</title>
+      <link>http://localhost:1313/posts/reveal/</link>
+      <pubDate>Tue, 15 Apr 2025 12:27:29 +0700</pubDate>
+      <guid>http://localhost:1313/posts/reveal/</guid>
+      <description>&lt;h1 id=&#34;reveal&#34;&gt;Reveal&lt;/h1&gt;
+&lt;p&gt;&lt;img alt=&#34;challenge banner&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/img/reveal/banner.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Link: &lt;a href=&#34;https://cyberdefenders.org/blueteam-ctf-challenges/reveal/&#34;&gt;https://cyberdefenders.org/blueteam-ctf-challenges/reveal/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;scenario&#34;&gt;Scenario&lt;/h2&gt;
+&lt;p&gt;You are a forensic investigator at a financial institution, and your SIEM flagged unusual activity on a workstation with access to sensitive financial data. Suspecting a breach, you received a memory dump from the compromised machine. Your task is to analyze the memory for signs of compromise, trace the anomaly&amp;rsquo;s origin, and assess its scope to contain the incident effectively.&lt;/p&gt;
+&lt;h2 id=&#34;file-analysis&#34;&gt;File Analysis&lt;/h2&gt;
+&lt;p&gt;given zip file. the zip file contains memory dump of the machine.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>FakeGPT</title>
+      <link>http://localhost:1313/posts/fakegpt/</link>
+      <pubDate>Tue, 15 Apr 2025 06:44:39 +0700</pubDate>
+      <guid>http://localhost:1313/posts/fakegpt/</guid>
+      <description>&lt;h1 id=&#34;fakegpt&#34;&gt;FakeGPT&lt;/h1&gt;
+&lt;p&gt;&lt;img alt=&#34;challenge&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/img/fakegpt/banner.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Link: &lt;a href=&#34;https://cyberdefenders.org/blueteam-ctf-challenges/fakegpt/&#34;&gt;https://cyberdefenders.org/blueteam-ctf-challenges/fakegpt/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;scenario&#34;&gt;Scenario&lt;/h2&gt;
+&lt;p&gt;Your cybersecurity team has been alerted to suspicious activity on your organization&amp;rsquo;s network. Several employees reported unusual behavior in their browsers after installing what they believed to be a helpful browser extension named &amp;ldquo;ChatGPT&amp;rdquo;. However, strange things started happening: accounts were being compromised, and sensitive information appeared to be leaking.&lt;/p&gt;
+&lt;p&gt;Your task is to perform a thorough analysis of this extension identify its malicious components.&lt;/p&gt;
+&lt;h2 id=&#34;file-analysis&#34;&gt;File Analysis&lt;/h2&gt;
+&lt;p&gt;The file &lt;code&gt;fakegpt.zip&lt;/code&gt; contains a Chrome extension named &amp;ldquo;Fakegpt&amp;rdquo;. It appears to be a browser extension that obfuscates target URLs, making them more difficult to detect during analysis.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
